@@ -1,0 +1,25 @@
+body{overflow-x:hidden;font-family:"微软雅黑";padding-top:80px}
+li,ul{list-style:none;margin:0;padding:0}
+.navbar>.container .navbar-brand{color:#fff}
+.sa_nav{border-radius:0;padding-left:0;padding-right:0;margin-bottom:0;background:#2c3e50;height:80px;position:fixed;top:0;left:0;z-index:99999;-webkit-box-shadow:0 0 10px rgba(0,0,0,.5);-moz-box-shadow:0 0 10px rgba(0,0,0,.5);box-shadow:0 0 10px rgba(0,0,0,.5)}
+.nav-text{margin-top:16px}
+.nav-text .contact{right:0;left:inherit}
+.nav-text .navheader{}
+.nav-text .contact-drop{margin-left:20px;height:50px;width:100px;float:right;color:#fff;line-height:50px}
+.nav-text .contact-drop a{font-size:16px;color:#fff}
+.nav-text .contact-drop .contact li a{color:#17202A}
+.links { width: 444px;}
+.links li a{color:#fff;font-size:16px}
+.links li a:hover{background:#17202a}
+#bigPic{width:100%;height:400px;overflow:hidden;margin-bottom:0}
+#bigPic ul{width:100%;height:400px}
+#bigPic ul li{display:inline-block;width:100%;float:left}
+#bigPic img{width:100%;height:400px}
+#myProjects{height:auto;margin-top:10px}
+#myProjects-intro{height:355px}
+#myProjects-intro p{font-size:18px;width: 250px;}
+#myProjects-pics ul li img{width:100%;height:355px}
+.andriod-download{height:50px;width:140px;font-size:16px;margin-top:28px}
+.andriod-download a{color:#fff}
+#footer{width:100%;height:80px;background:#2c3e50;clear:both}
+#footer h4{text-align:center;color:#fff;font-size:14px}
