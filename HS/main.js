@@ -232,7 +232,7 @@ HeroFighter.prototype.showHeroFighter = function() {
 
 		//战斗事件
 		Hamster.addEventListener(GAME_DATA.enemyFightFieldList[GAME_DATA.enemyFightFieldList.length - 1], "click", function() {
-
+			if(GAME_DATA.fight_heroChoise.action == 0) return;
 			GAME_DATA.fight_enemyChoise = this;
 			alert("我方" + GAME_DATA.fight_heroChoise.cnName + "攻击了敌人的" + GAME_DATA.fight_enemyChoise.cnName);
 
@@ -456,17 +456,6 @@ EnemyAIController.prototype.shotCard = function(enemy) {
 				actionSide = true;
 
 				self.enemyFighter.showHeroFighter();
-
-				// //更新剩余卡牌数刷新 
-				// heroCardRemains.refresh();
-
-				// // 改变角色状态
-				// hf.changeAction();
-
-				// // 增加回合数
-				// heroFee.addTurn();
-				// enemyFee.addTurn();
-				// hero.addCard();
 				
 				shotCardCount++;
 			}
