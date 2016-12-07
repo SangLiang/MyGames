@@ -419,7 +419,7 @@ Hamster.Preload.init = function () {
         var _text = "资源加载情况" + Math.floor(_visit_list.length / Res["images"].length * 100) + "%";
         // console.info("资源加载情况" + Math.floor(_visit_list.length / Res["images"].length * 100) + "%");
         Hamster.ctx.fillStyle = this.color;
-        Hamster.ctx.font = this.fontSize + "px " + this.fontFamily;
+        Hamster.ctx.font = "60px Microsoft Yahei";
         Hamster.ctx.fillText(_text, Hamster.width/2, Hamster.height/2);
 
         if (_visit_list.length == Res["images"].length) {
