@@ -43,9 +43,9 @@ Hamster.init = function(id, width, height, timeloop, background) {
 	Hamster.backgroundColor = background || "#333";
 
 	// 载入时的背景颜色
-	Hamster.cvs.style.background = "#333";
-	Hamster.cvs.style.width = Hamster.gameWidth;
-	Hamster.cvs.style.height = Hamster.gameHeight;
+	Hamster.cvs.style.background = "#000";
+	Hamster.cvs.style.width = width;
+	Hamster.cvs.style.height = height;
 	Hamster.cvs.style.display = "block";
 	Hamster.cvs.style.position = "relative";
 	Hamster.cvs.style.margin = "0 auto";
@@ -428,10 +428,11 @@ Hamster.Preload.init = function () {
     var time = setInterval(function () {
         var _text = "资源加载情况" + Math.floor(_visit_list.length / Res["images"].length * 100) + "%";
         console.info(_text);
-        Hamster.ctx.fillStyle = this.color;
-        Hamster.ctx.font = "60px Microsoft Yahei";
+        Hamster.ctx.fillStyle = "#ffffff";
+        Hamster.ctx.font = "60px";
         Hamster.ctx.fillText(_text, Hamster.width/2, Hamster.height/2);
 
+        console.log(Hamster.width);
         if (_visit_list.length == Res["images"].length) {
             Hamster.start();
             Hamster.rendingStage();
