@@ -23,8 +23,14 @@ var Res = {
         { "href": "./public/resource/ogre.png", "name": "ogre" }, //蓝胖子
         { "href": "./public/resource/ogre_fight.png", "name": "ogre_fight" }, //蓝胖子战斗
         { "href": "./public/resource/dead_wing.png", "name": "dead_wing" },
-        { "href": "./public/resource/dead_wing_fight.png", "name": "dead_wing_fight" }
+        { "href": "./public/resource/dead_wing_fight.png", "name": "dead_wing_fight" },
 
+        // 测试加载进度界面图片
+        { "href": "./public/resource/1.jpg", "name": "1" },
+        { "href": "./public/resource/2.jpg", "name": "2" },
+        { "href": "./public/resource/3.jpg", "name": "3" },
+        { "href": "./public/resource/4.jpg", "name": "4" },
+        { "href": "./public/resource/5.jpg", "name": "5" },
     ],
     "fonts": [],
     "sound": []
