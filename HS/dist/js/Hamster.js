@@ -10,8 +10,8 @@
 	"use strict"
 window.Hamster = window.Hamster || {};
 
-Hamster.spriteList = [];    //the list of sprites which need to be rended
-Hamster.uiList = [];        //ui list
+Hamster.spriteList = [];    //需要被渲染的sprite数组
+Hamster.uiList = [];        //需要被渲染的ui数组
 
 Hamster.ctx = null;         //main canvas context
 Hamster.timeloop = null;    //main gameloop
@@ -19,39 +19,6 @@ Hamster.gameWidth = null;   //the game stage width
 Hamster.gameHeight = null;  //the game stage height
 
 Hamster.spriteId = 0; // 相当于界面中所有sprite的计数器
-// 图片的预加载
-
-Hamster.Preload = {}
-// 加载图片数组
-Hamster.Preload.imageList = [];
-
-Hamster.Preload.init = (function () {
-    var _visit_list = [];
-    for (var i = 0; i < Res["images"].length; i++) {
-        (function (index) {
-            var obj = {};
-            obj.texture = new Image();
-            obj.name = Res["images"][index]["name"];
-            obj.texture.src = Res["images"][index]["href"];
-            obj.texture.onload = function () {
-                _visit_list.push(obj);
-                Hamster.Preload.imageList.push(obj);
-            }
-        })(i);
-    }
-    // 监听资源加载情况
-    var time = setInterval(function () {
-        console.info("资源加载情况" + Math.floor(_visit_list.length / Res["images"].length * 100) + "%");
-
-        if (_visit_list.length == Res["images"].length) {
-            Hamster.start();
-            Hamster.rendingStage();
-            clearInterval(time);
-            console.info("加载完成");
-        }
-    }, 1);
-})();
-
 /**
  * main canvas,canvas data setting
  * @id {id}
@@ -67,11 +34,13 @@ Hamster.init = function(id, width, height, timeloop, background) {
 	self.height = height;
 	Hamster.ctx = ctx;
 	Hamster.cvs = canvas;
+	Hamster.width = self.width;
+	Hamster.height = self.height;
 	Hamster.timeloop = (1 / 60);
 	Hamster.gameWidth = width;
 	Hamster.gameHeight = height;
 	Hamster.backgroundColor = background || "#333";
-
+	Hamster.Preload.init();
 };
 
 /**
@@ -91,6 +60,7 @@ Hamster.start = function() {
 
 	// 注册事件系统
 	var sys = new EventListenerSystem(Hamster.cvs);
+	Hamster.sys = sys;
 }
 
 Hamster.update = function() {
@@ -344,21 +314,21 @@ Hamster.remove = function(obj) {
 
 // 清楚某个tag
 Hamster.removeTag = function(tagName) {
-    for (var i = 0; i < Hamster.uiList.length; i++) {
-        if (Hamster.uiList[i].tag == tagName) {
-            Hamster.uiList.splice(i, 1);
-        }
-    }
+	for (var i = 0; i < Hamster.uiList.length; i++) {
+		if (Hamster.uiList[i].tag == tagName) {
+			Hamster.uiList.splice(i, 1);
+		}
+	}
 
-    for (var j = 0; j < Hamster.spriteList.length; j++) {
-        if (Hamster.spriteList[i].tag == tagName) {
-            Hamster.spriteList.splice(i, 1);
-        }
-    }
+	for (var j = 0; j < Hamster.spriteList.length; j++) {
+		if (Hamster.spriteList[i].tag == tagName) {
+			Hamster.spriteList.splice(i, 1);
+		}
+	}
 }
 
 // 清除所有元素
-Hamster.removeAll = function(){
+Hamster.removeAll = function() {
 	// 清除所有的渲染数组
 	Hamster.uiList = [];
 	Hamster.spriteList = [];
@@ -390,9 +360,9 @@ function EventListenerSystem(canvas) {
 		console.log(position.x, position.y);
 	});
 	// canvas.addEventListener('keydown', doKeyDown,true);
-	// window.addEventListener("keydown",function(e){
+	// window.addEventListener("keydown", function(e) {
 	// 	console.log(e.key);
-	// },true);
+	// }, true);
 }
 
 EventListenerSystem.prototype.getClickEventPosition = function(ev) {
@@ -410,15 +380,57 @@ EventListenerSystem.prototype.getClickEventPosition = function(ev) {
 	};
 }
 
+EventListenerSystem.prototype.onKeyDown =function(callback){
+	window.addEventListener("keydown", callback(e), true);
+}
+
 Hamster.addEventListener = function(obj, eventName, callback) {
 	if (eventName == "click") {
 		obj.onClick = callback;
 	}
-
-	if (eventName == "keydown") {
-		obj.onKeyDown = callback;
+	
+	if(eventName == "onKeyDown"){
+		Hamster.sys.onKeyDown(callback);
 	}
 }
+// 图片的预加载
+
+Hamster.Preload = {}
+// 加载图片数组
+Hamster.Preload.imageList = [];
+
+Hamster.Preload.init = function () {
+    console.log(Hamster.ctx);
+    var _visit_list = [];
+    for (var i = 0; i < Res["images"].length; i++) {
+        (function (index) {
+            var obj = {};
+            obj.texture = new Image();
+            obj.name = Res["images"][index]["name"];
+            obj.texture.src = Res["images"][index]["href"];
+            obj.texture.onload = function () {
+                _visit_list.push(obj);
+                Hamster.Preload.imageList.push(obj);
+            }
+        })(i);
+    }
+    // 监听资源加载情况
+    var time = setInterval(function () {
+        var _text = "资源加载情况" + Math.floor(_visit_list.length / Res["images"].length * 100) + "%";
+        // console.info("资源加载情况" + Math.floor(_visit_list.length / Res["images"].length * 100) + "%");
+        Hamster.ctx.fillStyle = this.color;
+        Hamster.ctx.font = this.fontSize + "px " + this.fontFamily;
+        Hamster.ctx.fillText(_text, Hamster.width/2, Hamster.height/2);
+
+        if (_visit_list.length == Res["images"].length) {
+            Hamster.start();
+            Hamster.rendingStage();
+            clearInterval(time);
+            console.info("加载完成");
+        }
+    }, 1);
+};
+
 /**
  * UI库，button和text都继承自sprite
  */
